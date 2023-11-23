@@ -1,11 +1,23 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import { Button } from "antd";
+import { useState } from "react";
+import CreateNewMovie from "./components/CreateNewMovie";
+import Filter from "./components/Filter";
+import MovieList from "./components/MovieList";
+import Navbar from "./components/Navbar";
+import { movies } from "./data";
+
 function App() {
+  const [myMovies, setMyMovies] = useState(movies);
+
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-      <Button type="primary">Button</Button>
+      <Navbar />
+
+      <div className="max-w-4xl mx-auto flex justify-between py-8">
+        <Filter />
+        <CreateNewMovie />
+      </div>
+
+      <MovieList myMovies={myMovies} />
     </div>
   );
 }

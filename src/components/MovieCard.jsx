@@ -3,8 +3,6 @@ import { Card, Rate } from "antd";
 const { Meta } = Card;
 
 const MovieCard = ({ title, description, posterUrl, rating }) => {
-  console.log(rating);
-
   return (
     <Card hoverable cover={<img alt="example" src={posterUrl} />}>
       <Meta

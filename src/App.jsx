@@ -14,13 +14,14 @@ function App() {
   // ***************************************
   // ***************************************
 
-  // use effect to save notes to local storage every time a user addes a new movie
+  // use effect to save movies to local storage every time a user addes a new movie
   useEffect(() => {
     const getMoviesFromLocalStorage = localStorage.getItem("movies");
-    // disable the setItem to local storage from runing when the app loads the first time
+    // stop the setItem to local storage from runing when the app loads the first time
     if (JSON.parse(getMoviesFromLocalStorage)?.length > myMovies.length) {
       return;
     }
+    // **********************
     localStorage.setItem("movies", JSON.stringify(myMovies));
   }, [updateMemorizedMovies]);
   // **************************************

@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+// components from ants design please refer to ant designs official website
 import { Button, Modal, Input, Rate, message } from "antd";
 import { VideoCameraAddOutlined } from "@ant-design/icons";
+// *************************************
+
+// package for validating user inputs
 import validator from "validator";
 
-const CreateNewMovie = ({ setMyMovies, setRandom, memorizedMovies }) => {
+const CreateNewMovie = ({
+  setMyMovies,
+  setUpdateMemorizedMovies,
+  memorizedMovies,
+}) => {
   const [movieInfo, setMovieInfo] = useState({
     id: Math.random(),
     title: "",
@@ -14,7 +22,7 @@ const CreateNewMovie = ({ setMyMovies, setRandom, memorizedMovies }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
 
-  //   a function to handle our input
+  //   a function to handle the user input when creating a new movie
   const handleInput = (event) => {
     const { id, value } = event.target;
     setMovieInfo((preValue) => {
@@ -26,20 +34,23 @@ const CreateNewMovie = ({ setMyMovies, setRandom, memorizedMovies }) => {
   };
   //   ********************************
   // ***********************************
+  // a function to handle user is selecting the rate of the moviee
   const handleRate = (value) => {
     setMovieInfo((preValue) => ({
       ...preValue,
       rating: value,
     }));
   };
+  // **********************
 
+  // a function to open the modal so a user can add a new movie
   const showModal = () => {
     setIsModalOpen(true);
   };
 
+  // a function to and the new movie and close the modal afterwards
   const handleOk = () => {
     // lets validate all our input before adding to the array
-
     // validate the posterUrl
     if (!validator.isURL(movieInfo.posterUrl)) {
       messageApi.open({
@@ -76,19 +87,22 @@ const CreateNewMovie = ({ setMyMovies, setRandom, memorizedMovies }) => {
       return;
     }
 
+    // display a success message after a user has success fully created a new movie
     messageApi.open({
       type: "success",
       content: "Movie successfully added",
     });
 
+    /* add the newly created movie to our already exsiting
+     arrays of movie so we can display them*/
     setMyMovies(() => [movieInfo, ...memorizedMovies.myMemorizedMovies]);
+    // *********************
 
-    // to trigger the memorized the value in the use memo in app.jsx
-    setRandom(Math.random());
+    // updated the movies stored in the use memo with the newly added movie
+    setUpdateMemorizedMovies(Math.random());
     // ***************************
     // ***************************
-
-    // now reset the input field back to empty values
+    // now reset the input field back to empty values after a user has created a movie successfully
     setMovieInfo({
       id: Math.random(),
       title: "",
@@ -96,9 +110,11 @@ const CreateNewMovie = ({ setMyMovies, setRandom, memorizedMovies }) => {
       posterUrl: "",
       rating: 1,
     });
+
     setIsModalOpen(false);
   };
 
+  // close the modal if a user clicks on the cancel button
   const handleCancel = () => {
     setIsModalOpen(false);
   };

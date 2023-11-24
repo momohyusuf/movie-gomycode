@@ -14,7 +14,6 @@ const Filter = ({ memorizedMovies: { myMemorizedMovies }, setMyMovies }) => {
 
   // filter movies by Search
   const filterBySearch = (value) => {
-    console.log(value);
     let filteredMovies = myMemorizedMovies.filter((item) =>
       item.title.toLocaleLowerCase().includes(value.toLowerCase().trim())
     );
@@ -22,12 +21,12 @@ const Filter = ({ memorizedMovies: { myMemorizedMovies }, setMyMovies }) => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-col md:flex-row">
       <Search
         placeholder="Search for movie..."
         enterButton
         style={{
-          width: 250,
+          maxWidth: 250,
         }}
         onSearch={(value) => filterBySearch(value)}
       />
